@@ -17,7 +17,7 @@ let icon = args.icon || "airplane.circle";
 let iconColor = args.color || "#32CD32";
 const apiUrl = args.url;
 
-getJMSDataInfo(apiUrl, function (result) {
+JMS_getDataInfo(apiUrl, function (result) {
 
   let now = new Date();
   let hour = now.getHours();
@@ -36,7 +36,7 @@ getJMSDataInfo(apiUrl, function (result) {
 
   let resetDate = getExpireDate(resetDay);
   let expireDate = args.expire;
-  let content = [`已用: ${bytesToSize(usage)} | 剩余: ${bytesToSize(total, usage)}`];
+  let content = [`已用: ${JMS_bytesToSize(usage)} | 剩余: ${toMultiply(total, usage)}`];
 
   if (expireDate && expireDate != resetDate) {
     content.push(`重置: ${formatTime(resetDate)} | 到期: ${formatTime(expireDate)}`);
@@ -61,7 +61,7 @@ function getArgs() {
   );
 }
 
-function getJMSDataInfo(url, callback) {
+function JMS_getDataInfo(url, callback) {
   const headers = {
     'User-Agent': 'Quantumult%20X'
   };
@@ -75,11 +75,11 @@ function getJMSDataInfo(url, callback) {
   });
 }
 
-function bytesToSize(bytes) {
+function JMS_bytesToSize(bytes) {
   const sizes = ["Bytes", "KB", "MB", "GB", "TB"];
   if (bytes === undefined) return "N/A";
-  const i = parseInt(Math.floor(Math.log(bytes) / Math.log(1024)));
-  return Math.round((bytes / Math.pow(1024, i)) * 100) / 100 + " " + sizes[i];
+  const i = parseInt(Math.floor(Math.log(bytes) / Math.log(1000)));
+  return Math.round((bytes / Math.pow(1000, i)) * 100) / 100 + " " + sizes[i];
 }
 
 function toPercent(num, total) {
@@ -101,7 +101,7 @@ function toMultiply(total, num) {
   maxLen = Math.max(totalDecimalLen, numDecimalLen);
   multiple = Math.pow(10, maxLen);
   const numberSize = ((total * multiple - num * multiple) / multiple).toFixed(maxLen);
-  return bytesToSize(numberSize);
+  return JMS_bytesToSize(numberSize);
 }
 
 function getExpireDate(dayOfMonth) {
