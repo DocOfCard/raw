@@ -34,14 +34,20 @@ JMS_getDataInfo(apiUrl, function (result) {
   let total = jsonData.monthly_bw_limit_b;
   let resetDay = jsonData.bw_reset_day_of_month;
 
-  let resetDate = getExpireDate(resetDay);
+  let resetDate = JMS_getExpireDate(resetDay);
+  let resetDayLeft = getRmainingDays(parseInt(resetDay));
   let expireDate = args.expire;
   let content = [`已用: ${JMS_bytesToSize(usage)} | 剩余: ${toMultiply(total, usage)}`];
 
-  if (expireDate && expireDate != resetDate) {
-    content.push(`重置: ${formatTime(resetDate)} | 到期: ${formatTime(expireDate)}`);
-  } else {
-    content.push(`到期时间: ${formatTime(resetDate)}`);
+  if (resetDayLeft || expireDate) {
+    if (resetDayLeft && expireDate && expireDate !== "false") {
+      if (/^[\d.]+$/.test(expireDate)) expireDate *= 1000;
+      content.push(`重置: \t ${resetDayLeft} 天 \t | 到期: ${formatTime(expireDate)}`);
+    } else if (resetDayLeft && !expireDate) {
+      content.push(`重置: \t ${resetDayLeft} 天 \t | 到期: ${formatTime(resetDate)}`);
+    } else if (!resetDayLeft) {
+      content.push(`到期时间：${formatTime(resetDate)}`);
+    }
   }
 
   $done({
@@ -75,6 +81,24 @@ function JMS_getDataInfo(url, callback) {
   });
 }
 
+function getRmainingDays(resetDay) {
+    if (!resetDay) return;
+  
+    let now = new Date();
+    let today = now.getDate();
+    let month = now.getMonth();
+    let year = now.getFullYear();
+    let daysInMonth;
+  
+    if (resetDay > today) {
+      daysInMonth = 0;
+    } else {
+      daysInMonth = new Date(year, month + 1, 0).getDate();
+    }
+  
+    return daysInMonth - today + resetDay;
+  }
+
 function JMS_bytesToSize(bytes) {
   const sizes = ["Bytes", "KB", "MB", "GB", "TB"];
   if (bytes === undefined) return "N/A";
@@ -104,7 +128,7 @@ function toMultiply(total, num) {
   return JMS_bytesToSize(numberSize);
 }
 
-function getExpireDate(dayOfMonth) {
+function JMS_getExpireDate(dayOfMonth) {
   if (!dayOfMonth) return;
 
   const today = new Date();
