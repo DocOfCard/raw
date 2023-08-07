@@ -99,12 +99,27 @@ function getRmainingDays(resetDay) {
     return daysInMonth - today + resetDay;
   }
 
+//function JMS_bytesToSize(bytes) {
+//  const sizes = ["Bytes", "KB", "MB", "GB", "TB"];
+//  if (bytes === undefined) return "N/A";
+//  const i = parseInt(Math.floor(Math.log(bytes) / Math.log(1000)));
+//  return Math.round((bytes / Math.pow(1000, i)) * 100) / 100 + " " + sizes[i];
+//}
+
 function JMS_bytesToSize(bytes) {
-  const sizes = ["Bytes", "KB", "MB", "GB", "TB"];
-  if (bytes === undefined) return "N/A";
-  const i = parseInt(Math.floor(Math.log(bytes) / Math.log(1000)));
-  return Math.round((bytes / Math.pow(1000, i)) * 100) / 100 + " " + sizes[i];
+  if (bytes === 0) return "0B";
+  let k = 1000;
+  sizes = ["B", "KB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB"];
+  let i = Math.floor(Math.log(bytes) / Math.log(k));
+  return (bytes / Math.pow(k, i)).toFixed(2) + " " + sizes[i];
 }
+
+//function bytesToSizeNumber(bytes) {
+//  if (bytes === 0) return "0";
+//  let k = 1024;
+//  let i = Math.floor(Math.log(bytes) / Math.log(k));
+//  return (bytes / Math.pow(k, i)).toFixed(2);
+//}
 
 function toPercent(num, total) {
   return (Math.round((num / total) * 10000) / 100).toFixed(1) + "%";
