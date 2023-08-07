@@ -12,8 +12,8 @@
 
 # 本模块无法直接远程使用，需将内容复制到本地模块进行修改方可使用
 # 先从 justmysocks 网站后台获取到你自己的『流量信息 API』链接，注意不是订阅链接。先将输入法调为英文键盘输入，然后修改链接中的 ?service=UID&id=UUID 部分，将 ? 改为 %3F，将2个 = 改为 %3D，将 & 改为 %26，UID 和 UUID 是你自己的数字不动，其它部分也不动，填入下面 argument=url= 后面。如果你觉得自己修改麻烦，也可以用网上的工具将链接 encode，比如 https://www.urlencoder.org
-# 可选参数 &expire 后面的日期改为你的订阅过期时间，如 "&expire=2023-09-01"，注意一定要按照 yyyy-MM-dd 的格式。一般只有半年/年订阅才建议传入这个参数，月付的不要传
-# 可选参数 "title=xxx" 可以自定义标题。
+# 可选参数 "expire=xxx" 后面的日期改为你的订阅过期时间，如 "&expire=2023-09-01"，注意一定要按照 yyyy-MM-dd 的格式。一般只有半年/年订阅才建议传入这个参数，月付的不要传
+# 可选参数 "title=xxx" 可以自定义标题，如 "&title=JMS_info"。
 # 可选参数 "icon=xxx" 可以自定义图标，内容为任意有效的 SF Symbol Name，如 bolt.horizontal.circle.fill，详细可以下载 app https://apps.apple.com/cn/app/sf-symbols-browser/id1491161336
 # 可选参数 "color=xxx" 当使用 icon 字段时，可传入 color 字段控制图标颜色，字段内容为颜色的 HEX 编码。如：color=#007aff
 
