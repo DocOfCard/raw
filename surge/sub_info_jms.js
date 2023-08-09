@@ -42,9 +42,9 @@ JMS_getDataInfo(apiUrl, function (result) {
   if (resetDayLeft || expireDate) {
     if (resetDayLeft && expireDate && expireDate !== "false") {
       if (/^[\d.]+$/.test(expireDate)) expireDate *= 1000;
-      content.push(`重置: \t ${resetDayLeft} 天 \t | 到期: ${formatTime(expireDate)}`);
+      content.push(`重置: \t ${resetDayLeft} 天 \t| 到期: ${formatTime(expireDate)}`);
     } else if (resetDayLeft && !expireDate) {
-      content.push(`重置: \t ${resetDayLeft} 天 \t | 到期: ${formatTime(resetDate)}`);
+      content.push(`重置: \t ${resetDayLeft} 天 \t| 到期: ${formatTime(resetDate)}`);
     } else if (!resetDayLeft) {
       content.push(`到期时间：${formatTime(resetDate)}`);
     }
