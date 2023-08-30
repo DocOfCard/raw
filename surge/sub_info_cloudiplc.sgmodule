@@ -1,0 +1,17 @@
+#!name=CloudIPLC 流量信息
+#!desc=显示 CloudIPLC 剩余流量和到期时间
+#!system=ios
+
+// update: 8/30/2023
+// version: 1.0
+// telegram: @DocOfCard
+
+# 本模块无法直接远程使用，需将内容复制到本地模块进行修改方可使用
+# 修改以下内容中的 your_email@example.com 为你的 CloudIPLC 登录邮箱，your_password 为你的 CloudIPLC 登录密码
+# 可选修改 title, icon, color 参数
+
+[Panel]
+cloudiplc_info = script-name=cloudiplc_info,update-interval=600
+
+[Script]
+cloudiplc_info = type=generic,timeout=15,script-path=https://raw.githubusercontent.com/DocOfCard/raw/main/surge/sub_info_cloudiplc.js,script-update-interval=0,argument=email=your_email@example.com&password=your_password&title=IPLC_info&icon=pencil.and.outline&color=#33cd32
