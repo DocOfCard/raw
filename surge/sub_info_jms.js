@@ -5,7 +5,7 @@
  */
 
 /*
- * 显示 JMS 剩余流量信息以及套餐到期时间
+ * Surge 面板显示 JMS 剩余流量信息和套餐到期时间
  * update: 8/3/2023
  * version: 1.0
  * telegram: @DocOfCard
